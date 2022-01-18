@@ -1,0 +1,12 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "aplikasi klinik menggunkan MERN (MONGO DB, EXPRESS, REACT JS, NODE JS)",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Fahira & Zian",
+  "license": "ISC"
+}
