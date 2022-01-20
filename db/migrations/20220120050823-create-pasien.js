@@ -1,13 +1,19 @@
 /* eslint-disable no-unused-vars */
 module.exports = {
-  up: (queryInterface, Sequelize) => queryInterface.createTable('roles', {
+  up: (queryInterface, Sequelize) => queryInterface.createTable('pasiens', {
     id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: Sequelize.INTEGER,
     },
-    role_name: {
+    name: {
+      type: Sequelize.STRING,
+    },
+    bod: {
+      type: Sequelize.DATE,
+    },
+    address: {
       type: Sequelize.STRING,
     },
     createdAt: {
@@ -19,5 +25,5 @@ module.exports = {
       type: Sequelize.DATE,
     },
   }),
-  down: (queryInterface, Sequelize) => queryInterface.dropTable('roles'),
+  down: (queryInterface, Sequelize) => queryInterface.dropTable('pasiens'),
 };

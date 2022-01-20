@@ -7,12 +7,12 @@ module.exports = {
       primaryKey: true,
       type: Sequelize.INTEGER,
     },
-    name: {
-      type: Sequelize.STRING,
-    },
     email: {
       type: Sequelize.STRING,
       unique: true,
+    },
+    full_name: {
+      type: Sequelize.STRING,
     },
     password: {
       type: Sequelize.STRING,
@@ -25,7 +25,7 @@ module.exports = {
         model: {
           tableName: 'roles',
         },
-        key: 'role',
+        key: 'role_name',
       },
     },
     token: {
