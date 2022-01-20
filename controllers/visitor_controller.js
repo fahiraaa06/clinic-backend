@@ -1,9 +1,9 @@
 /* eslint-disable object-shorthand */
 /* eslint-disable camelcase */
 const models = require('../db/models');
-const service = require('../service/pasien_service');
+const service = require('../service/visitor_service');
 
-exports.createPasien = async (req, res) => {
+exports.createVisitor = async (req, res) => {
   const { name, bird_of_date, address } = req.body;
   try {
     const userRespon = await models.pasien.create({
@@ -24,13 +24,13 @@ exports.createPasien = async (req, res) => {
   }
 };
 
-exports.findPasien = async (req, res) => {
+exports.findVisitors = async (req, res) => {
   const page = parseInt(req.query.current_page, 10) || 1;
   const limit = parseInt(req.query.per_page, 10) || 10;
   const search = req.query.search || '';
   try {
-    const respon = await service.findAllPasien(page, limit, search);
-    const total = await service.countAllPasien(page, limit, search);
+    const respon = await service.findVisitors(page, limit, search);
+    const total = await service.countVisitors(page, limit, search);
     res.status(200).json({
       status: 200,
       message: 'success',
@@ -45,6 +45,7 @@ exports.findPasien = async (req, res) => {
       },
     });
   } catch (err) {
+    console.log(err)
     res.status(500).json({
       status: 500,
       message: 'internal server error',
@@ -52,12 +53,12 @@ exports.findPasien = async (req, res) => {
   }
 };
 
-exports.deletePasien = async (req, res) => {
+exports.deleteVisitor = async (req, res) => {
   const {
     id,
   } = req.body;
   try {
-    const respon = await models.pasien.destroy({
+    const respon = await models.visitor.destroy({
       where: {
         id,
       },

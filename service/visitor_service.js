@@ -1,18 +1,19 @@
 /* eslint-disable object-shorthand */
 const models = require('../db/models');
 
-const findUsers = async (page, limit, search) => {
+const findVisitors = async (page, limit, search) => {
   const respon = await models.sequelize.query(`
     SELECT
-      u.id,
-      u.email,
-      u.full_name,
-      u.role,
-      u.createdAt,
-      u.updatedAt
-    FROM users u
-    WHERE u.full_name LIKE :search_name
-    ORDER BY u.id DESC
+      v.id,
+      v.user_id,
+      v.dokter_id,
+      v.visitor_name,
+      v.status,
+      v.createdAt,
+      v.updatedAt
+    FROM visitors v
+    WHERE v.visitor_name LIKE :search_name
+    ORDER BY v.id DESC
     LIMIT :offset, :limit
     `,
   {
@@ -26,11 +27,11 @@ const findUsers = async (page, limit, search) => {
   return respon;
 };
 
-const countUsers = async (page, limit, search) => {
+const countVisitors = async (page, limit, search) => {
   const respon = await models.sequelize.query(`
     SELECT COUNT(*) as total
-    FROM users
-    WHERE full_name LIKE :search_name
+    FROM visitors
+    WHERE visitor_name LIKE :search_name
     `,
   {
     replacements: {
@@ -44,5 +45,5 @@ const countUsers = async (page, limit, search) => {
 };
 
 module.exports = {
-  findUsers, countUsers,
+  findVisitors, countVisitors,
 };

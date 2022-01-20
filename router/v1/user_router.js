@@ -5,5 +5,6 @@ const validate = require('../../validation/user_validation');
 
 router.post('/user/registrasi', validate.simple, user.registrasiUser);
 router.post('/user/login', validate.simple, user.loginUser);
+router.get('/users', user.findUsers);
 
 module.exports = router;
