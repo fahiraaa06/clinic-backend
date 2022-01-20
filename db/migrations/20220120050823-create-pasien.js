@@ -11,7 +11,7 @@ module.exports = {
       type: Sequelize.STRING,
     },
     bod: {
-      type: Sequelize.DATE,
+      type: Sequelize.DATEONLY,
     },
     address: {
       type: Sequelize.STRING,

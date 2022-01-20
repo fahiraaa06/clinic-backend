@@ -5,7 +5,7 @@ POST http://localhost:9000/v1/user/login HTTP/1.1
 content-type: application/json
 
 {
-    "email": "admin@email.com",
+    "email": "kasir@email.com",
     "password": "testing123"
 }
 ###
@@ -18,3 +18,16 @@ content-type: application/json
     "password": "Testing123@"
 }
 ###
+
+POST http://localhost:9000/v1/pasien HTTP/1.1
+content-type: application/json
+
+{
+    "name": "fahira",
+    "bird_of_date": "2003-06-14",
+    "address": "medan"
+}
+###
+
+GET http://localhost:9000/v1/pasien HTTP/1.1
+content-type: application/json

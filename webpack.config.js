@@ -1,4 +1,4 @@
-const path = require('path')
+const path = require('path');
 
 module.exports = {
   entry: './main.js',
@@ -6,23 +6,23 @@ module.exports = {
   // context: path.resolve(__dirname, 'src')
   output: {
     // filename: 'main.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
   },
   resolveLoader: {
     modules: [
-      __dirname + '/node_modules'
-    ]
+      `${__dirname}/node_modules`,
+    ],
   },
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        loader: "babel-loader"
+        loader: 'babel-loader',
         // use: {
         //   loader: "babel-loader"
         // }
-      }
-    ]
-  }
-}
+      },
+    ],
+  },
+};

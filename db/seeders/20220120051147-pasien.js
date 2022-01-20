@@ -1,22 +1,24 @@
 /* eslint-disable no-unused-vars */
 
-const reseps = [
+const pasiens = [
   {
-    rekam_medis_id: 1,
-    obat_id: '1,2',
+    name: 'banbang',
+    bod: '2000-01-01',
+    address: 'bambang',
     createdAt: new Date(),
     updatedAt: new Date(),
   },
   {
-    rekam_medis_id: 2,
-    obat_id: '1,2',
+    name: 'budi',
+    bod: '2000-01-01',
+    address: 'bambang',
     createdAt: new Date(),
     updatedAt: new Date(),
   },
 ];
 
 module.exports = {
-  up: (queryInterface, Sequelize) => queryInterface.bulkInsert('reseps', reseps),
+  up: (queryInterface, Sequelize) => queryInterface.bulkInsert('pasiens', pasiens),
 
-  down: (queryInterface, Sequelize) => queryInterface.bulkDelete('reseps', null, {}),
+  down: (queryInterface, Sequelize) => queryInterface.bulkDelete('pasiens', null, {}),
 };
