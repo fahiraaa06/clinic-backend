@@ -43,6 +43,27 @@ const countUsers = async (page, limit, search) => {
   return respon;
 };
 
+const findUserById = async (userId) => {
+  const respon = await models.sequelize.query(`
+    SELECT
+      u.id,
+      u.email,
+      u.full_name,
+      u.role,
+      u.createdAt,
+      u.updatedAt
+    FROM users u
+    WHERE u.id = :id
+    `,
+  {
+    replacements: {
+      id: userId,
+    },
+    type: models.sequelize.QueryTypes.SELECT,
+  });
+  return respon;
+};
+
 module.exports = {
-  findUsers, countUsers,
+  findUsers, countUsers, findUserById,
 };

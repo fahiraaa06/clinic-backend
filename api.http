@@ -1,3 +1,4 @@
+@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjQyNzk1NTg3LCJleHAiOjE2NDI3OTkxODd9.8FrJQTEWj2zkzcKAUFhrC_p6pm5-9VXHI19oUnk4a3c
 GET  http://localhost:9000/v1/ HTTP/1.1
 ###
 POST http://localhost:9000/v1/user/login HTTP/1.1
@@ -28,8 +29,9 @@ content-type: application/json
 GET http://localhost:9000/v1/pasien HTTP/1.1
 content-type: application/json
 ###
-GET http://localhost:9000/v1/dokter/pasien HTTP/1.1
+GET http://localhost:9000/v1/dokter/visitors HTTP/1.1
 content-type: application/json
+Authorization: {{token}}
 ###
 GET http://localhost:9000/v1/dokter HTTP/1.1
 content-type: application/json

@@ -13,9 +13,6 @@ module.exports = {
     dokter_id: {
       type: Sequelize.STRING,
     },
-    registrasion_at: {
-      type: Sequelize.DATE,
-    },
     checkup: {
       type: Sequelize.STRING,
     },

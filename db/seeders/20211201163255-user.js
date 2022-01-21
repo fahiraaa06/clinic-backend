@@ -23,6 +23,16 @@ const fakeUser = [
     updatedAt: new Date(),
   },
   {
+    full_name: 'dokter2',
+    password: '$2b$10$l43yx8k1PmO52ltWbESyVOdZ/xvk0RMbOuevytfMykdK/9qE9oDQm',
+    email: 'dokter2@email.com',
+    role: 'dokter',
+    token: null,
+    is_active: true,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
     full_name: 'kasir',
     password: '$2b$10$l43yx8k1PmO52ltWbESyVOdZ/xvk0RMbOuevytfMykdK/9qE9oDQm',
     email: 'kasir@email.com',
