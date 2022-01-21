@@ -1,11 +1,11 @@
-@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjQyNzk1NTg3LCJleHAiOjE2NDI3OTkxODd9.8FrJQTEWj2zkzcKAUFhrC_p6pm5-9VXHI19oUnk4a3c
+@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjQyNzgwMzg3LCJleHAiOjE2NDI3ODM5ODd9.Syr7o-xUd-5O-g8XJn6FVUYZjH4OM8OdnUMSoMbGaJI
 GET  http://localhost:9000/v1/ HTTP/1.1
 ###
 POST http://localhost:9000/v1/user/login HTTP/1.1
 content-type: application/json
 
 {
-  "email": "kasir@email.com",
+  "email": "admin@email.com",
   "password": "testing123"
 }
 ###

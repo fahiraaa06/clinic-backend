@@ -115,7 +115,7 @@ const dokterFindVisitors = async (page, limit, search, role, dokterId) => {
     LEFT JOIN dokters d ON d.id = v.dokter_id
     WHERE p.name LIKE :search_name
     AND DATE(v.createdAt) = :visiting
-    ${role === 'dokter' && 'AND v.dokter_id = :dokter_id'}
+    ${role === 'dokter' ? 'AND v.dokter_id = :dokter_id' : ''}
     ORDER BY v.id DESC
     LIMIT :offset, :limit
     `,
@@ -143,7 +143,7 @@ const dokterCountVisitors = async (page, limit, search, role, dokterId) => {
     LEFT JOIN dokters d ON d.id = v.dokter_id
     WHERE p.name LIKE :search_name
     AND DATE(v.createdAt) = :visiting
-    ${role === 'dokter' && 'AND v.dokter_id = :dokter_id'}
+    ${role === 'dokter' ? 'AND v.dokter_id = :dokter_id' : ''}
     `,
   {
     replacements: {

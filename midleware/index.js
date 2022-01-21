@@ -38,20 +38,24 @@ const mustDdokter = async (req, res, next) => {
   const result = jwt.verify(token, process.env.SECRET_KEY);
   try {
     const response = await service.findUserById(result.id);
-    if (response[0].role !== 'dokter') {
-      return res.status(401).json({
-        status: 401,
-        message: 'Unauthorized',
-      });
-    }
-    if (response[0].role === 'super_user') {
+    if (response[0].role === 'dokter') {
+      req.user = {
+        id: response[0].id,
+        role: response[0].role,
+      };
       return next();
     }
-    req.user = {
-      id: response[0].id,
-      role: response[0].role,
-    };
-    return next();
+    if (response[0].role === 'super_user') {
+      req.user = {
+        id: response[0].id,
+        role: response[0].role,
+      };
+      return next();
+    }
+    return res.status(401).json({
+      status: 401,
+      message: 'Unauthorized',
+    });
   } catch (err) {
     return res.status(401).json({
       status: 401,

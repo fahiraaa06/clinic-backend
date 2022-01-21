@@ -45,7 +45,7 @@ exports.findVisitors = async (req, res) => {
       },
     });
   } catch (err) {
-    console.log(err)
+    console.log(err);
     res.status(500).json({
       status: 500,
       message: 'internal server error',

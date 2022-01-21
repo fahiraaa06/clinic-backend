@@ -5,14 +5,17 @@ const findVisitors = async (page, limit, search) => {
   const respon = await models.sequelize.query(`
     SELECT
       v.id,
-      v.user_id,
+      v.pasien_id,
       v.dokter_id,
-      v.visitor_name,
       v.status,
       v.createdAt,
-      v.updatedAt
+      v.updatedAt,
+      d.dokter_name,
+      p.name
     FROM visitors v
-    WHERE v.visitor_name LIKE :search_name
+    LEFT JOIN pasiens p ON p.id = v.pasien_id
+    LEFT JOIN dokters d ON d.id = v.dokter_id
+    WHERE p.name LIKE :search_name
     ORDER BY v.id DESC
     LIMIT :offset, :limit
     `,
@@ -30,8 +33,10 @@ const findVisitors = async (page, limit, search) => {
 const countVisitors = async (page, limit, search) => {
   const respon = await models.sequelize.query(`
     SELECT COUNT(*) as total
-    FROM visitors
-    WHERE visitor_name LIKE :search_name
+    FROM visitors v
+    LEFT JOIN pasiens p ON p.id = v.pasien_id
+    LEFT JOIN dokters d ON d.id = v.dokter_id
+    WHERE p.name LIKE :search_name
     `,
   {
     replacements: {

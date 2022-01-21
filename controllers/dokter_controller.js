@@ -62,12 +62,16 @@ exports.dokterFindVisitors = async (req, res) => {
   const limit = parseInt(req.query.per_page, 10) || 10;
   const search = req.query.search || '';
   try {
-    const dokter = await service.findDokterById(req.user.id);
+    let dokterId = null;
+    if (req.user.role === 'dokter') {
+      const dokter = await service.findDokterById(req.user.id);
+      dokterId = dokter[0].id;
+    }
     const respon = await service.dokterFindVisitors(
-      page, limit, search, req.user.role, dokter[0].id,
+      page, limit, search, req.user.role, dokterId,
     );
     const total = await service.dokterCountVisitors(
-      page, limit, search, req.user.role, dokter[0].id,
+      page, limit, search, req.user.role, dokterId,
     );
     res.status(200).json({
       status: 200,
@@ -99,7 +103,7 @@ exports.detailPasien = async (req, res) => {
       status: 200,
       message: 'success',
       data: {
-        pasien,
+        pasien: pasien[0],
         records,
       },
     });
