@@ -1,10 +1,7 @@
 /* eslint-disable object-shorthand */
 /* eslint-disable camelcase */
 const models = require('../db/models');
-
-// const createResponse = (data) => ({
-//   data: data,
-// });
+const service = require('../service/pasien_service');
 
 exports.createPasien = async (req, res) => {
   const { name, bird_of_date, address } = req.body;
@@ -28,16 +25,24 @@ exports.createPasien = async (req, res) => {
 };
 
 exports.findPasien = async (req, res) => {
+  const page = parseInt(req.query.current_page, 10) || 1;
+  const limit = parseInt(req.query.per_page, 10) || 10;
+  const search = req.query.search || '';
   try {
-    const respon = await models.pasien.findAll({
-      order: [
-        ['id', 'DESC'],
-      ],
-    });
+    const respon = await service.findAllPasien(page, limit, search);
+    const total = await service.countAllPasien(page, limit, search);
     res.status(200).json({
       status: 200,
       message: 'success',
-      data: respon,
+      data: {
+        docs: respon,
+        paging: {
+          current_page: page,
+          per_page: limit,
+          total: total[0].total,
+          search,
+        },
+      },
     });
   } catch (err) {
     res.status(500).json({

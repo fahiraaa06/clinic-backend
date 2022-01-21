@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const models = require('../db/models');
 const helper = require('../helper');
+const service = require('../service/user_service');
 
 const saltRounds = 10;
 
@@ -44,8 +45,8 @@ exports.registrasiUser = async (req, res) => {
         });
         jwt.sign({
           id: userRespon.id,
-        }, process.env.SECRET_KEY, { expiresIn: 60 * 60 }, (err, token) => {
-          if (err) {
+        }, process.env.SECRET_KEY, { expiresIn: 60 * 60 }, (errs, token) => {
+          if (errs) {
             return res.status(500).json({
               status: 500,
               message: 'Internal Server Error',
@@ -108,6 +109,34 @@ exports.loginUser = async (req, res) => {
     return res.status(500).json({
       status: 500,
       message: 'Internal Server Error',
+    });
+  }
+};
+
+exports.findUsers = async (req, res) => {
+  const page = parseInt(req.query.current_page, 10) || 1;
+  const limit = parseInt(req.query.per_page, 10) || 10;
+  const search = req.query.search || '';
+  try {
+    const respon = await service.findUsers(page, limit, search);
+    const total = await service.countUsers(page, limit, search);
+    res.status(200).json({
+      status: 200,
+      message: 'success',
+      data: {
+        docs: respon,
+        paging: {
+          current_page: page,
+          per_page: limit,
+          total: total[0].total,
+          search,
+        },
+      },
+    });
+  } catch (err) {
+    res.status(500).json({
+      status: 500,
+      message: 'internal server error',
     });
   }
 };

@@ -1,24 +1,21 @@
 GET  http://localhost:9000/v1/ HTTP/1.1
 ###
-
 POST http://localhost:9000/v1/user/login HTTP/1.1
 content-type: application/json
 
 {
-    "email": "kasir@email.com",
-    "password": "testing123"
+  "email": "kasir@email.com",
+  "password": "testing123"
 }
 ###
-
 POST http://localhost:9000/v1/user/registrasi HTTP/1.1
 content-type: application/json
 
 {
-    "email": "admin2@email.com",
-    "password": "Testing123@"
+  "email": "admin2@email.com",
+  "password": "Testing123@"
 }
 ###
-
 POST http://localhost:9000/v1/pasien HTTP/1.1
 content-type: application/json
 
@@ -28,6 +25,14 @@ content-type: application/json
     "address": "medan"
 }
 ###
-
 GET http://localhost:9000/v1/pasien HTTP/1.1
+content-type: application/json
+###
+GET http://localhost:9000/v1/dokter/pasien HTTP/1.1
+content-type: application/json
+###
+GET http://localhost:9000/v1/dokter HTTP/1.1
+content-type: application/json
+###
+GET http://localhost:9000/v1/users HTTP/1.1
 content-type: application/json
