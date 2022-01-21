@@ -11,7 +11,7 @@ module.exports = {
       type: Sequelize.INTEGER,
     },
     obat_id: {
-      type: Sequelize.STRING,
+      type: Sequelize.INTEGER,
     },
     createdAt: {
       allowNull: false,

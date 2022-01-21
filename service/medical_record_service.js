@@ -3,6 +3,7 @@ const models = require('../db/models');
 const findMedicalRecords = async (pasienId) => {
   const respon = await models.sequelize.query(`
     SELECT
+      m.id,
       m.createdAt,
       m.updatedAt,
       m.checkup,

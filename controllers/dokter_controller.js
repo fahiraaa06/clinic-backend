@@ -1,5 +1,6 @@
 const service = require('../service/dokter_service');
 const srv = require('../service/medical_record_service');
+const obt = require('../service/obat_service');
 
 exports.dokterFindPasien = async (req, res) => {
   const page = parseInt(req.query.current_page, 10) || 1;
@@ -99,12 +100,25 @@ exports.detailPasien = async (req, res) => {
   try {
     const pasien = await service.detailPasien(req.params.pasienId);
     const records = await srv.findMedicalRecords(req.params.pasienId);
+    const newRecord = await Promise.all(
+      records.map(async (item) => {
+        const obats = await obt.findObatByRecordId(item.id);
+        return {
+          id: item.id,
+          createdAt: item.createdAt,
+          updatedAt: item.updatedAt,
+          checkup: item.checkup,
+          medical_record: item.medical_record,
+          obats,
+        };
+      }),
+    );
     res.status(200).json({
       status: 200,
       message: 'success',
       data: {
         pasien: pasien[0],
-        records,
+        records: newRecord,
       },
     });
   } catch (err) {

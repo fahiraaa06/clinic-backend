@@ -1,4 +1,4 @@
-@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjQyNzgwMzg3LCJleHAiOjE2NDI3ODM5ODd9.Syr7o-xUd-5O-g8XJn6FVUYZjH4OM8OdnUMSoMbGaJI
+@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjQyNzk1NDU3LCJleHAiOjE2NDI3OTkwNTd9.YLZwiwn4GXPxszVUX7lZaWFieAj7eq8iiah6W6WM_8A
 GET  http://localhost:9000/v1/ HTTP/1.1
 ###
 POST http://localhost:9000/v1/user/login HTTP/1.1

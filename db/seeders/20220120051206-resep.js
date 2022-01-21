@@ -3,13 +3,19 @@
 const reseps = [
   {
     rekam_medis_id: 1,
-    obat_id: '1,2',
+    obat_id: 1,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    rekam_medis_id: 1,
+    obat_id: 2,
     createdAt: new Date(),
     updatedAt: new Date(),
   },
   {
     rekam_medis_id: 2,
-    obat_id: '1,2',
+    obat_id: 2,
     createdAt: new Date(),
     updatedAt: new Date(),
   },
