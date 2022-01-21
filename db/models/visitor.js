@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     user_id: DataTypes.INTEGER,
     dokter_id: DataTypes.INTEGER,
     visitor_name: DataTypes.STRING,
-    // status: DataTypes.ENUM,
+    status: DataTypes.ENUM('waiting', 'checked', 'done'),
   }, {});
   visitor.associate = function (models) {
     // associations can be defined here
