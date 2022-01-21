@@ -98,7 +98,7 @@ const findDokterById = async (userId) => {
   return respon;
 };
 
-const dokterFindVisitors = async (page, limit, search, dokterId) => {
+const dokterFindVisitors = async (page, limit, search, role, dokterId) => {
   const tm = new Date();
   const mo = tm.getMonth() + 1 < 10 ? `0${tm.getMonth() + 1}` : tm.getMonth() + 1;
   const visiting = `${tm.getFullYear()}-${mo}-${tm.getDate()}`;
@@ -108,37 +108,73 @@ const dokterFindVisitors = async (page, limit, search, dokterId) => {
       v.status,
       p.name,
       v.createdAt,
-      v.updatedAt
+      v.updatedAt,
+      d.dokter_name
     FROM visitors v
-    LEFT JOIN pasiens p ON p.id = v.user_id
+    LEFT JOIN pasiens p ON p.id = v.pasien_id
+    LEFT JOIN dokters d ON d.id = v.dokter_id
     WHERE p.name LIKE :search_name
     AND DATE(v.createdAt) = :visiting
+    ${role === 'dokter' && 'AND v.dokter_id = :dokter_id'}
     ORDER BY v.id DESC
     LIMIT :offset, :limit
     `,
   {
     replacements: {
       limit: limit,
-      visiting: visiting,
       offset: page === 0 ? page : (page - 1) * limit,
       search_name: `%${search}%`,
+      dokter_id: dokterId,
+      visiting: visiting,
     },
     type: models.sequelize.QueryTypes.SELECT,
   });
   return respon;
 };
 
-const dokterCountVisitors = async (page, limit, search, dokterId) => {
+const dokterCountVisitors = async (page, limit, search, role, dokterId) => {
+  const tm = new Date();
+  const mo = tm.getMonth() + 1 < 10 ? `0${tm.getMonth() + 1}` : tm.getMonth() + 1;
+  const visiting = `${tm.getFullYear()}-${mo}-${tm.getDate()}`;
   const respon = await models.sequelize.query(`
     SELECT COUNT(*) as total
-    FROM visitors
-    WHERE visitor_name LIKE :search_name
+    FROM visitors v
+    LEFT JOIN pasiens p ON p.id = v.pasien_id
+    LEFT JOIN dokters d ON d.id = v.dokter_id
+    WHERE p.name LIKE :search_name
+    AND DATE(v.createdAt) = :visiting
+    ${role === 'dokter' && 'AND v.dokter_id = :dokter_id'}
     `,
   {
     replacements: {
       limit: limit,
       offset: page === 0 ? page : (page - 1) * limit,
       search_name: `%${search}%`,
+      dokter_id: dokterId,
+      visiting: visiting,
+    },
+    type: models.sequelize.QueryTypes.SELECT,
+  });
+  return respon;
+};
+
+const detailPasien = async (pasienId) => {
+  const respon = await models.sequelize.query(`
+    SELECT
+      v.id,
+      v.status,
+      p.name,
+      v.createdAt,
+      v.updatedAt,
+      d.dokter_name
+    FROM visitors v
+    LEFT JOIN pasiens p ON p.id = v.pasien_id
+    LEFT JOIN dokters d ON d.id = v.dokter_id
+    WHERE v.pasien_id = :pasien_id
+    `,
+  {
+    replacements: {
+      pasien_id: pasienId,
     },
     type: models.sequelize.QueryTypes.SELECT,
   });
@@ -153,4 +189,5 @@ module.exports = {
   dokterFindVisitors,
   dokterCountVisitors,
   findDokterById,
+  detailPasien,
 };

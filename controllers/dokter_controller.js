@@ -1,4 +1,5 @@
 const service = require('../service/dokter_service');
+const srv = require('../service/medical_record_service');
 
 exports.dokterFindPasien = async (req, res) => {
   const page = parseInt(req.query.current_page, 10) || 1;
@@ -62,9 +63,12 @@ exports.dokterFindVisitors = async (req, res) => {
   const search = req.query.search || '';
   try {
     const dokter = await service.findDokterById(req.user.id);
-    // console.log(dokter[0]);
-    const respon = await service.dokterFindVisitors(page, limit, search, dokter[0]);
-    const total = await service.dokterCountVisitors(page, limit, search, dokter[0]);
+    const respon = await service.dokterFindVisitors(
+      page, limit, search, req.user.role, dokter[0].id,
+    );
+    const total = await service.dokterCountVisitors(
+      page, limit, search, req.user.role, dokter[0].id,
+    );
     res.status(200).json({
       status: 200,
       message: 'success',
@@ -76,6 +80,27 @@ exports.dokterFindVisitors = async (req, res) => {
           total: total[0].total,
           search,
         },
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      status: 500,
+      message: 'internal server error',
+    });
+  }
+};
+
+exports.detailPasien = async (req, res) => {
+  try {
+    const pasien = await service.detailPasien(req.params.pasienId);
+    const records = await srv.findMedicalRecords(req.params.pasienId);
+    res.status(200).json({
+      status: 200,
+      message: 'success',
+      data: {
+        pasien,
+        records,
       },
     });
   } catch (err) {

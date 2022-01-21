@@ -1,14 +1,14 @@
 /* eslint-disable no-unused-vars */
 const visitors = [
   {
-    user_id: 1,
+    pasien_id: 1,
     dokter_id: 1,
     status: 'waiting',
     createdAt: new Date(),
     updatedAt: new Date(),
   },
   {
-    user_id: 2,
+    pasien_id: 2,
     dokter_id: 1,
     status: 'waiting',
     createdAt: new Date(),

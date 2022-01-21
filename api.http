@@ -21,9 +21,9 @@ POST http://localhost:9000/v1/pasien HTTP/1.1
 content-type: application/json
 
 {
-    "name": "fahira",
-    "bird_of_date": "2003-06-14",
-    "address": "medan"
+  "name": "fahira",
+  "bird_of_date": "2003-06-14",
+  "address": "medan"
 }
 ###
 GET http://localhost:9000/v1/pasien HTTP/1.1
@@ -41,3 +41,7 @@ content-type: application/json
 ###
 GET http://localhost:9000/v1/visitors HTTP/1.1
 content-type: application/json
+###
+GET http://localhost:9000/v1/dokter/visitor/1 HTTP/1.1
+content-type: application/json
+Authorization: {{token}}

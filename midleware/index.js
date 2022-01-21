@@ -49,6 +49,7 @@ const mustDdokter = async (req, res, next) => {
     }
     req.user = {
       id: response[0].id,
+      role: response[0].role,
     };
     return next();
   } catch (err) {
