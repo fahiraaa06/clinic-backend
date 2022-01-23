@@ -49,6 +49,24 @@ const countVisitors = async (page, limit, search) => {
   return respon;
 };
 
+const createVisitors = async (pasien_id, dokter_id) => {
+  const respon = await models.sequelize.query(`
+    INSERT INTO visitors (pasien_id, dokter_id, status, createdAt, updatedAt) 
+    VALUES (:pasien_id, :dokter_id, :status, :createdAt, :updatedAt)
+    `,
+  {
+    replacements: {
+      pasien_id: pasien_id,
+      dokter_id: dokter_id,
+      status: 'waiting',
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },
+    type: models.sequelize.QueryTypes.INSERT,
+  });
+  return respon;
+};
+
 module.exports = {
-  findVisitors, countVisitors,
+  findVisitors, countVisitors, createVisitors
 };

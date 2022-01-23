@@ -5,14 +5,12 @@
     "url": "https://github.com/fahiraaa06/clinic-backend.git"
   },
   "version": "1.0.0",
-  "description": "aplikasi klinik menggunkan MERN (MONGO DB, EXPRESS, REACT JS, NODE JS)",
+  "description": "",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon ./main.js",
-    "start": "node main.js",
-    "build": "webpack --mode production",
-    "migrate": "npx sequelize-cli db:migrate"
+    "start": "node main.js"
   },
   "author": "Fahira & Zian",
   "license": "ISC",

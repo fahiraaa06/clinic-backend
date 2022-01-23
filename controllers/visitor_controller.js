@@ -2,21 +2,19 @@
 /* eslint-disable camelcase */
 const models = require('../db/models');
 const service = require('../service/visitor_service');
+const serviceRecord = require('../service/medical_record_service')
 
 exports.createVisitor = async (req, res) => {
-  const { name, bird_of_date, address } = req.body;
+  const { pasien_id, dokter_id, chekup } = req.body;
   try {
-    const userRespon = await models.pasien.create({
-      name: name,
-      bod: bird_of_date,
-      address: address,
-    });
+    await service.createVisitors(pasien_id, dokter_id)
+    await serviceRecord.createMedicalRecords(pasien_id, dokter_id, chekup)
     return res.status(200).json({
       status: 200,
       message: 'success',
-      data: userRespon,
     });
   } catch (err) {
+    console.log(err)
     return res.status(500).json({
       status: 500,
       message: 'Internal Server Error',

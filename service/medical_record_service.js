@@ -21,6 +21,24 @@ const findMedicalRecords = async (pasienId) => {
   return respon;
 };
 
+const createMedicalRecords = async (pasien_id, dokter_id, chekup) => {
+  const respon = await models.sequelize.query(`
+    INSERT INTO rekam_medis (pasien_id, dokter_id, checkup, createdAt, updatedAt) 
+    VALUES (:pasien_id, :dokter_id, :chekup, :createdAt, :updatedAt)
+    `,
+  {
+    replacements: {
+      pasien_id: pasien_id,
+      dokter_id: dokter_id,
+      chekup: chekup,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },
+    type: models.sequelize.QueryTypes.INSERT,
+  });
+  return respon;
+};
+
 module.exports = {
-  findMedicalRecords,
+  findMedicalRecords, createMedicalRecords
 };
